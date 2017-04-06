@@ -34,7 +34,7 @@ summarize_df_cat <- function(d){
   pct.missing <- function(v) sum(is.na(v))/length(v)
   n.missing <- function(v) 100*sum(is.na(v))
   n.unique <- function(v) length(unique(v))
-  unique.vals <- function(v){
+  unique.vals.chr <- function(v){
     vals <- sort(unique(v))
     f <- function(x){
       if(nchar(x)>20)
@@ -56,5 +56,19 @@ summarize_df_cat <- function(d){
                                       c("n.missing","pct.missing","n.unique"),
                                       as.numeric))
   summary_cat
+}
+
+#' @export
+unique_cats <- function(d, cols = NULL, as_long = TRUE){
+  cols <- cols %||% names(d)
+  d <- d[cols]
+  d <- fct_to_chr(keep(d,~!is.numeric(.)))
+  #dd <- map(d,~as.list(unique(.)))
+  dd <- map(d,unique)
+  vars <- data_frame(variables = names(d))
+  vars$values <- dd
+  if(as_long)
+    return(unnest(vars))
+  vars
 }
 

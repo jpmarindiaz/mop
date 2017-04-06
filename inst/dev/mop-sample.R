@@ -20,6 +20,9 @@ which_any_na_cols(d)
 
 s <- summarize_str(d)
 
+catVals <- unique_cats(d)
+catVals <- unique_cats(d, as_long = FALSE)
+
 ##
 dic <- data_frame(code= c("01","02","03"),
                   name = c("first","second","third"))
@@ -32,6 +35,7 @@ which_not_in_dic(d,dic)
 which_not_in_dic(d,dic, cols = 2:3)
 which_not_in_dic(d,dic, cols = c("code","name"))
 
-
+match_replace(d$code,dic)
+match_replace(d$code,dic, force = FALSE)
 
 
