@@ -35,6 +35,7 @@ summarize_df_num <- function(d){
 #' @export
 summarize_df_cat <- function(d){
   d_chr <- fct_to_chr(keep(d,~!is.numeric(.)))
+  if(ncol(d_chr) == 0) return(NULL)
   pct.missing <- function(v) 100*sum(is.na(v))/length(v)
   n.missing <- function(v) sum(is.na(v))
   n.unique <- function(v) length(unique(v))
