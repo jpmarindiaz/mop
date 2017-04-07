@@ -15,15 +15,17 @@ summarize_str <- function(d){
 #' @export
 summarize_df_num <- function(d){
   d_num <- keep(d,is.numeric)
-  pct.missing <- function(v) sum(is.na(v))/length(v)
-  n.missing <- function(v) 100*sum(is.na(v))
+  pct.missing <- function(v) 100*sum(is.na(v))/length(v)
+  n.missing <- function(v) sum(is.na(v))
   n.unique <- function(v) length(unique(v))
   s_num <- summarise_all(d_num,
                          funs(n.missing,pct.missing, n.unique,
                               min,max,mean,median))
-  s_num <- as_vector(s_num)
-  s_num <- data_frame(var = names(s_num),value = s_num)
-  s <- s_num %>% separate(var, c("variable","metric"),sep = "_")
+  #x <- unlist(transpose(s_cat)[[1]])
+  x <- as_vector(s_num)
+  s_num <- data_frame(var = names(x),value = x)
+  #s <- s_num %>% separate(var, c("variable","metric"),sep = "_")
+  s <- s_num %>% extract(var, c("variable","metric"), "(.*)_(.*)$")
   summary_num <- s %>% spread(metric,value)
   summary_num
 }
@@ -31,10 +33,10 @@ summarize_df_num <- function(d){
 #' @export
 summarize_df_cat <- function(d){
   d_chr <- fct_to_chr(keep(d,~!is.numeric(.)))
-  pct.missing <- function(v) sum(is.na(v))/length(v)
-  n.missing <- function(v) 100*sum(is.na(v))
+  pct.missing <- function(v) 100*sum(is.na(v))/length(v)
+  n.missing <- function(v) sum(is.na(v))
   n.unique <- function(v) length(unique(v))
-  unique.vals.chr <- function(v){
+  unique.vals <- function(v){
     vals <- sort(unique(v))
     f <- function(x){
       if(nchar(x)>20)
@@ -46,11 +48,11 @@ summarize_df_cat <- function(d){
   }
   s_cat <- summarise_all(d_chr,
                          funs(n.missing,pct.missing, n.unique,unique.vals))
-  #s_cat <- gather(s_cat)
-  #s_cat <- empty_chr_to_na(s_cat)
-  s_cat <- as_vector(s_cat)
-  s_cat <- data_frame(var = names(s_cat),value = s_cat)
-  s <- s_cat %>% separate(var, c("variable","metric"),sep = "_")
+  #x <- as_vector(s_cat)
+  x <- unlist(transpose(s_cat)[[1]])
+  s_cat <- data_frame(var = names(x),value = x)
+  #s <- s_cat %>% separate(var, c("variable","metric"),sep = "_")
+  s <- s_cat %>% extract(var, c("variable","metric"), "(.*)_(.*)$")
   summary_cat <- s %>% spread(metric,value)
   summary_cat <- as_data_frame(map_at(summary_cat,
                                       c("n.missing","pct.missing","n.unique"),
