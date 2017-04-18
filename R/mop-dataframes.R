@@ -1,4 +1,11 @@
 
+
+#' @export
+contains_word <- function(){
+
+}
+
+
 #' @export
 match_replace <- function(v,dic, force = TRUE){
   matches <- dic[[2]][match(v,dic[[1]])]

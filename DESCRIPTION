@@ -8,7 +8,8 @@ Maintainer: Juan Pablo Marin Diaz <jpmarindiaz@gmail.com>
 Description: Clean data
 Depends:
     R (>= 3.1.2),
-    tidyverse
+    tidyverse,
+    stringr
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true

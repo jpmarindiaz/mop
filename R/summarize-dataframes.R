@@ -1,6 +1,6 @@
 #' @export
 summarize_str <- function(d){
-
+  # n.vals, n.null, n.na, n.givenVals,...
   num_vars <- summarize_df_num(d)
   if(!is.null(num_vars)) num_vars$.type <- "num"
   cat_vars <- summarize_df_cat(d)
