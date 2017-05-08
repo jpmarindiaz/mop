@@ -28,3 +28,23 @@ create_slug <- function(x){
   x
 }
 
+
+#' @export
+totitle <- function(x) {
+  x <- tolower(x)
+  s <- strsplit(x, " ")
+  f <- function(str) paste(toupper(substring(str, 1,1)), substring(str, 2),
+        sep="", collapse=" ")
+  map_chr(s,f)
+}
+
+#' @export
+nwords <- function(string, pseudo=FALSE){
+  ifelse( pseudo,
+          pattern <- "\\S+",
+          pattern <- "[[:alpha:]]+"
+  )
+  str_count(string, pattern)
+}
+
+

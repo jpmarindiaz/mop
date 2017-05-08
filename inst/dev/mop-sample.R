@@ -1,6 +1,6 @@
 
-devtools::install()
 devtools::document()
+devtools::install()
 
 
 library(mop)
