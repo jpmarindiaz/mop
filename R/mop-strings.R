@@ -47,4 +47,23 @@ nwords <- function(string, pseudo=FALSE){
   str_count(string, pattern)
 }
 
+#' @export
+extract_inside_parenthesis <- function(s){
+  str_extract(s,"(?<=\\().*?(?=\\))")
+}
+
+#' @export
+extract_inside_quotes <- function(s, quoteMark = '"'){
+  if(quoteMark == "'") out <- str_extract(s,"(?<=').*?(?=')")
+  else out <- str_extract(s,'(?<=").*?(?=")')
+  out
+}
+
+#' @export
+extract_between_chars <- function(s,chr1,chr2 = NULL){
+  chr2 <- chr2 %||% chr1
+  pattern <- paste0("(?<=",chr1,").*?(?=",chr2,")")
+  str_extract(s,pattern)
+}
+
 
