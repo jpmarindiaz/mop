@@ -1,5 +1,14 @@
 
 #' @export
+squeeze_rows <- function(d, by = NULL){
+  if(is.null(by)) d$.id <- 1:nrow(d)
+  else d$.id <- by
+  dlong <- d %>% gather(key,vals,-.id) %>% discard_any_na_rows()
+  dlong %>% spread(key,vals)
+}
+
+
+#' @export
 spread_every <- function(v,n,into = NULL){
   #n = 3
   #v <- rep(letters[1:n],5)
@@ -42,6 +51,16 @@ fct_to_chr <- function(d){
 
 date_to_chr <- function(d){
   d %>% mutate_if(is.Date, as.character)
+}
+
+#' @export
+discard_all_empty_rows <- function(d){
+  d %>% filter(apply(., 1, function(x) !all(x == "")))
+}
+
+#' @export
+discard_any_empty_rows <- function(d){
+  d %>% filter(apply(., 1, function(x) !any(x == "")))
 }
 
 #' @export

@@ -30,6 +30,9 @@ test_that("Mop", {
   sv <- spread_every(v,2, into = c("F","S"))
   expect_equal(v[c(2*1:(length(v)/2))], sv[[2]])
 
+  d <- diag(x=1:3,3,4)
+  d[d==0] <- NA
+  rbind(d,d)
 
 })
 
