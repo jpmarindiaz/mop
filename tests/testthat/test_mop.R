@@ -25,6 +25,11 @@ test_that("Mop", {
   # Dates
   expect_equal(timestamp_date(-863715600),"1942-08-19")
 
+  # Dataframes
+  v <- c("first","second","1st","2nd","one","two")
+  sv <- spread_every(v,2, into = c("F","S"))
+  expect_equal(v[c(2*1:(length(v)/2))], sv[[2]])
+
 
 })
 

@@ -1,8 +1,22 @@
 
+#' @export
+spread_every <- function(v,n,into = NULL){
+  #n = 3
+  #v <- rep(letters[1:n],5)
+  col_name <- deparse(substitute(v))
+  d <- data_frame(v)
+  d$idx <- flatten_int(map(seq_len(length(v) %/% n),rep,n))
+  out <- d %>% slice_rows("idx") %>% by_slice(~.$v, .collate="cols")
+  out$idx <- NULL
+  if(!is.null(into))
+    names(out) <- into
+  out
+}
+
 
 #' @export
 contains_word <- function(){
-
+NULL
 }
 
 
