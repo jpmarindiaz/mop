@@ -50,7 +50,7 @@ match_replace_approx <- function(v,dic, max_dist = 0.1, method = "jw", force = T
     names(yy)[1] <- names(x)[1]
     return( yy %>% select(-.id, -.dist))
   }
-  yy
+  y
 }
 
 
