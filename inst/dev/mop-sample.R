@@ -16,17 +16,16 @@ d <- casos[geo_vars]
 
 ## Veredas
 veredas <- read_csv("inst/data/geo/co/divipola-veredas.csv")
+
 dv <- d[c("db","ID","VEREDA")] %>% filter(!is.na(VEREDA))
+v <- unique(dv$VEREDA)
+dic <- veredas[c("NOMBRE_VER","CODIGO_VER")] %>% distinct(NOMBRE_VER, .keep_all = TRUE)
 
-v <- dv$VEREDA
-dic <- veredas[c("NOMBRE_VER","CODIGO_VER")]
+x <- match_replace_approx(v, dic, force = TRUE)
+x
 
-match_replace_approx <- function(v,dic, max_dist = 0.1){
-  x <- data_frame(x = v)
-  names(x) <- names(dic)[1]
 
-  y <- stringdist_left_join(x, dic,method = "jw",max_dist = max_dist)
-}
+
 
 #
 d %>% filter(!is.na(CENPOB)) %>% nrow()

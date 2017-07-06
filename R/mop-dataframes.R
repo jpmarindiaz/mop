@@ -38,6 +38,20 @@ match_replace <- function(v,dic, force = TRUE){
   out
 }
 
+#' @export
+match_replace_approx <- function(v,dic, max_dist = 0.1, method = "jw", force = TRUE){
+  x <- data_frame(x = v, .id = 1:length(x))
+  names(x)[1] <- names(dic)[1]
+  y <- stringdist_left_join(x, dic, method = method,max_dist = max_dist,
+                            distance_col = ".dist")
+  y <- y %>% arrange(.id, .dist)
+  if(force){
+    yy <- y %>% group_by(.id) %>% slice(1) %>% ungroup()
+    return( yy %>% select(-.id, -.dist))
+  }
+  yy
+}
+
 
 #' @export
 fct_recode_df <- function(d,col,codes){
