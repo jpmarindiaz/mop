@@ -21,6 +21,9 @@ dv <- d[c("db","ID","VEREDA")] %>% filter(!is.na(VEREDA))
 v <- unique(dv$VEREDA)
 dic <- veredas[c("NOMBRE_VER","CODIGO_VER")] %>% distinct(NOMBRE_VER, .keep_all = TRUE)
 
+v <- v[1]
+dic <- dic[1:10,]
+
 x <- match_replace_approx(v, dic, force = TRUE)
 x
 
