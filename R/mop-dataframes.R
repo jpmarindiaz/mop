@@ -45,9 +45,10 @@ match_replace_approx <- function(v,dic, max_dist = 0.1, method = "jw", force = T
   y <- stringdist_left_join(x, dic, method = method,max_dist = max_dist,
                             distance_col = ".dist")
   y <- y %>% arrange(.id, .dist)
+  names(y)[1] <- names(x)[1]
   if(force){
     yy <- y %>% group_by(.id) %>% slice(1) %>% ungroup()
-    names(yy)[1] <- names(x)[1]
+
     return( yy %>% select(-.id, -.dist))
   }
   y
