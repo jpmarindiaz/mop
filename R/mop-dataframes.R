@@ -47,6 +47,7 @@ match_replace_approx <- function(v,dic, max_dist = 0.1, method = "jw", force = T
   y <- y %>% arrange(.id, .dist)
   if(force){
     yy <- y %>% group_by(.id) %>% slice(1) %>% ungroup()
+    names(yy)[1] <- names(x)[1]
     return( yy %>% select(-.id, -.dist))
   }
   yy
