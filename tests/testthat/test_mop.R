@@ -34,6 +34,13 @@ test_that("Mop", {
   d[d==0] <- NA
   rbind(d,d)
 
+  # Approx match
+  dic <- data_frame(a = c('rat','tan','ken'), b = c(1,2,3))
+  v <- c('rata','ten','kena')
+  match_replace_approx(v, dic, max_dist = 0.3)
+  match_replace_approx("xxx", dic)
+  out <- match_replace_approx("xxx", dic, force = FALSE)
+  expect_equal(out$.dist, NA)
 })
 
 

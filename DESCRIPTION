@@ -10,7 +10,9 @@ Depends:
     R (>= 3.1.2),
     tidyverse,
     stringr,
-    anytime
+    purrrlyr,
+    anytime,
+    fuzzyjoin
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
