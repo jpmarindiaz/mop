@@ -83,4 +83,15 @@ extract_between_chars <- function(s,chr1,chr2 = NULL){
   str_extract(s,pattern)
 }
 
+#' @export
+extract_numbers <- function(s, decimal = ".", thousands = ","){
+  #remove_punctuation <- gsub('[[:punct:] ]+',' ',s)
+  # unlist(s)
+  # s <- unlist(strsplit(unlist(s), "[^0-9]+"))
+  # unlist(na.omit(as.numeric(s)))
+  unique(na.omit(as.numeric(unlist(strsplit(unlist(s), "[^0-9]+")))))
+}
+
+
+
 
