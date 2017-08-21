@@ -40,7 +40,7 @@ match_replace <- function(v,dic, force = TRUE){
 
 #' @export
 match_replace_approx <- function(v,dic, max_dist = 0.1, method = "jw", force = TRUE){
-  if(nrow(dic) == 0) return()
+  if(nrow(dic) == 0) stop("Empty dictionary")
   x <- data_frame(x = v, .id = 1:length(x))
   names(x)[1] <- names(dic)[1]
   y <- stringdist_left_join(x, dic, method = method,max_dist = max_dist,
@@ -89,6 +89,16 @@ discard_all_na_rows <- function(d){
 #' @export
 discard_any_na_rows <- function(d){
   d %>% filter(apply(., 1, function(x) !any(is.na(x))))
+}
+
+#' @export
+keep_all_na_rows <- function(d){
+  d %>% filter(apply(., 1, function(x) all(is.na(x))))
+}
+
+#' @export
+keep_any_na_rows <- function(d){
+  d %>% filter(apply(., 1, function(x) any(is.na(x))))
 }
 
 #' @export

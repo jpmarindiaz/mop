@@ -16,7 +16,6 @@ remove_accents <- function(string){
   chartr(accents, translation, string)
 }
 
-
 #' @export
 create_slug <- function(x){
   x <- gsub("[^[:alnum:]]","-",x)
@@ -65,5 +64,6 @@ extract_between_chars <- function(s,chr1,chr2 = NULL){
   pattern <- paste0("(?<=",chr1,").*?(?=",chr2,")")
   str_extract(s,pattern)
 }
+
 
 

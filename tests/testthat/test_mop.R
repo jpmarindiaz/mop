@@ -41,6 +41,10 @@ test_that("Mop", {
   match_replace_approx("xxx", dic)
   out <- match_replace_approx("xxx", dic, force = FALSE)
   expect_equal(out$.dist, NA)
+
+  dic <- data_frame()
+  expect_error(match_replace_approx("xxx", dic))
+
 })
 
 
