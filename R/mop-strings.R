@@ -1,3 +1,20 @@
+#' @export
+str_tpl_format <- function(tpl, l){
+  if("list" %in% class(l)){
+    listToNameValue <- function(l){
+      mapply(function(i,j) list(name = j, value = i), l, names(l), SIMPLIFY = FALSE)
+    }
+    f <- function(tpl,l){
+      gsub(paste0("{",l$name,"}"), l$value, tpl, fixed = TRUE)
+    }
+    return( Reduce(f,listToNameValue(l), init = tpl))
+  }
+  if("data.frame" %in% class(l)){
+    myTranspose <- function(x) lapply(1:nrow(x), function(i) lapply(l, "[[", i))
+    return( unlist(lapply(myTranspose(l), function(l, tpl) str_tpl_format(tpl, l), tpl = tpl)) )
+  }
+}
+
 
 #' @export
 trim_spaces <- function(x){
@@ -64,6 +81,17 @@ extract_between_chars <- function(s,chr1,chr2 = NULL){
   pattern <- paste0("(?<=",chr1,").*?(?=",chr2,")")
   str_extract(s,pattern)
 }
+
+#' @export
+extract_numbers <- function(s, decimal = ".", thousands = ","){
+  #remove_punctuation <- gsub('[[:punct:] ]+',' ',s)
+  # unlist(s)
+  # s <- unlist(strsplit(unlist(s), "[^0-9]+"))
+  # unlist(na.omit(as.numeric(s)))
+  unique(na.omit(as.numeric(unlist(strsplit(unlist(s), "[^0-9]+")))))
+}
+
+
 
 
 
