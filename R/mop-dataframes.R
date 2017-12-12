@@ -7,7 +7,7 @@ transpose_df <- function(df, colnames = NULL){
     rownames_to_column %>%
     gather(var, value, -rowname) %>%
     spread(rowname, value)
-  names(d) <- nms
+  names(d) <- c("variable", nms)
   d
 }
 
