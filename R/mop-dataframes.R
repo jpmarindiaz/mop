@@ -39,6 +39,12 @@ match_replace <- function(v,dic, force = TRUE){
 }
 
 #' @export
+match_replace_substr <- function(v,dic, ...){
+  pmap_chr(list(dic[[1]],dic[[2]],v),gsub,...)
+}
+
+
+#' @export
 match_replace_approx <- function(v,dic, max_dist = 0.1, method = "jw", force = TRUE){
   if(nrow(dic) == 0) stop("Empty dictionary")
   x <- data_frame(x = v, .id = 1:length(x))
@@ -104,6 +110,12 @@ keep_any_na_rows <- function(d){
 #' @export
 discard_all_na_cols <- function(d){
   f <- function(x)!all(is.na(x))
+  d %>% keep(f)
+}
+
+#' @export
+discard_any_na_cols <- function(d){
+  f <- function(x)!any(is.na(x))
   d %>% keep(f)
 }
 

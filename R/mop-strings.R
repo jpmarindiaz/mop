@@ -91,7 +91,10 @@ extract_numbers <- function(s, decimal = ".", thousands = ","){
   unique(na.omit(as.numeric(unlist(strsplit(unlist(s), "[^0-9]+")))))
 }
 
-
-
+#' @export
+extract_last_word <- function(s, n = 1){
+  #stringi::stri_extract_last_words()
+  word(trim_spaces(trim_punct(s)),-n)
+}
 
 
