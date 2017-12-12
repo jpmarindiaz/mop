@@ -1,5 +1,19 @@
 
 #' @export
+transpose_df <- function(df, colnames = NULL){
+  if(!is.null(colnames)) nms <- df[[colnames]]
+  d <- df %>%
+    select(-one_of(colnames)) %>%
+    rownames_to_column %>%
+    gather(var, value, -rowname) %>%
+    spread(rowname, value)
+  names(d) <- nms
+  d
+}
+
+
+
+#' @export
 squeeze_rows <- function(d, by = NULL){
   if(is.null(by)) d$.id <- 1:nrow(d)
   else d$.id <- by
