@@ -116,6 +116,14 @@ keep_all_na_rows <- function(d){
   d %>% filter(apply(., 1, function(x) all(is.na(x))))
 }
 
+
+
+#' @export
+discard_any_equals_rows <- function(d, vals){
+  d %>% filter(apply(., 1, function(x) !any(x %in% vals)))
+}
+
+
 #' @export
 keep_any_na_rows <- function(d){
   d %>% filter(apply(., 1, function(x) any(is.na(x))))
