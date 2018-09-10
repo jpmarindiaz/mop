@@ -3,8 +3,8 @@
 coalesce_rows <- function(x, group, collapse_many = TRUE, sep = "|"){
   coalesce_by_column <- function(df, collapse_many = TRUE, sep = "|") {
     if(collapse_many & !is.na(df[1]) &!is.na(df[2]))
-      return(paste(df[1],df[2], collapse = sep, sep = sep))
-    return(coalesce(df[1], df[2]))
+      return(paste(df, collapse = sep, sep = sep))
+    return(reduce(df,coalesce))
   }
   qgroup <- enquo(group)
   if(collapse_many){
