@@ -24,7 +24,7 @@ test_that("Mop", {
   discard_any_na_cols(d)
 
   # Coalesce rows
-  x <- data_frame(id = c("A","A","A","B", "B"), a = c(NA,0, 0, 0, NA), b = c(0,1,2,3, 1), c = c(NA,1,2,NA, 3))
+  x <- data_frame(id = c("A","A","A","B", "B"), a = c(NA,0, 0, 0, NA), b = c(0,0,2,3, 1), c = c(NA,1,2,NA, 3))
   coalesce_rows(x, id, sep = "||")
   coalesce_rows(x, id, collapse_many = FALSE)
 
