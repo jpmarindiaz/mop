@@ -23,7 +23,13 @@ test_that("Mop", {
   d <- data_frame(x = c(1,NA), y = c(1,2), z = c("NA",NA))
   discard_any_na_cols(d)
 
-})
+  # Coalesce rows
+  x <- data_frame(id = c("A","A","A","B"), a = c(NA,0, 1,2), b = c(0,1,NA,3), c = c(NA,1,2,3))
+  coalesce_rows(x, id, sep = "||")
+  coalesce_rows(x, id, collapse_many = FALSE)
+
+
+  })
 
 
 
