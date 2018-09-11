@@ -16,6 +16,8 @@ coalesce_rows <- function(x, group, collapse_many = TRUE, sep = "|"){
     ungroup()
 }
 
+#' @exportdevt
+split_tibble <- function(tibble, col = 'col') tibble %>% split(., .[,col])
 
 
 
