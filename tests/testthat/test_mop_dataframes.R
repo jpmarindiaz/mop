@@ -29,8 +29,8 @@ test_that("Mop", {
   coalesce_rows(x, id, collapse_many = FALSE)
 
   # Expand rows
-  d <- data_frame(a = c(1,2), b = c("a","x|y|z"))
-  expand_rows(d, "b")
+  d <- data_frame(a = c(1,2), x = c("a","x|y|z"))
+  expand_rows(d, "x")
 
   })
 

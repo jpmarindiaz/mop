@@ -18,12 +18,11 @@ coalesce_rows <- function(x, group, collapse_many = TRUE, sep = "|"){
 
 #' @export
 expand_rows <- function(d, col, sep = "|"){
-  col <- enquo(col)
   f <- function(x, sep = "|"){
     strsplit(x, sep, fixed = TRUE )
   }
   d %>%
-    mutate_at(vars(matches('b')),f, sep) %>%
+    mutate_at(vars(matches(col)),f, sep) %>%
     unnest()
 }
 
