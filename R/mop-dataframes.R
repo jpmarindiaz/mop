@@ -16,7 +16,7 @@ coalesce_rows <- function(x, group, collapse_many = TRUE, sep = "|"){
     ungroup()
 }
 
-
+#' @export
 expand_rows <- function(d, col, sep = "|"){
   col <- enquo(col)
   f <- function(x, sep = "|"){
@@ -28,7 +28,7 @@ expand_rows <- function(d, col, sep = "|"){
 }
 
 
-#' @exportdevt
+#' @export
 split_tibble <- function(tibble, col = 'col') tibble %>% split(., .[,col])
 
 
