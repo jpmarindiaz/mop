@@ -16,6 +16,18 @@ coalesce_rows <- function(x, group, collapse_many = TRUE, sep = "|"){
     ungroup()
 }
 
+
+expand_rows <- function(d, col, sep = "|"){
+  col <- enquo(col)
+  f <- function(x, sep = "|"){
+    strsplit(x, sep, fixed = TRUE )
+  }
+  d %>%
+    mutate_at(vars(matches('b')),f, sep) %>%
+    unnest()
+}
+
+
 #' @exportdevt
 split_tibble <- function(tibble, col = 'col') tibble %>% split(., .[,col])
 
@@ -32,6 +44,7 @@ transpose_df <- function(df, colnames = NULL){
   names(d) <- c("variable", nms)
   d
 }
+
 
 
 
