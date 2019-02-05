@@ -38,6 +38,6 @@ mix_names_es <- function(x, combinations = NULL){
       paste(w[comb] %>% remove_na(),collapse = " ")
     })
   })
-  d <- data_frame(name = x, combinations = combs)
+  d <- tibble(name = x, combinations = combs)
   unnest(d) %>% distinct()
 }

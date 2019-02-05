@@ -61,7 +61,7 @@ spread_every <- function(v,n,into = NULL){
   #n = 3
   #v <- rep(letters[1:n],5)
   col_name <- deparse(substitute(v))
-  d <- data_frame(v)
+  d <- tibble(v)
   d$idx <- flatten_int(map(seq_len(length(v) %/% n),rep,n))
   out <- d %>% slice_rows("idx") %>% by_slice( function(x)x$v, .collate="cols")
   out$idx <- NULL
@@ -95,7 +95,7 @@ match_replace_substr <- function(v,dic, ...){
 #' @export
 match_replace_approx <- function(v,dic, max_dist = 0.1, method = "jw", force = TRUE){
   if(nrow(dic) == 0) stop("Empty dictionary")
-  x <- data_frame(x = v, .id = 1:length(x))
+  x <- tibble(x = v, .id = 1:length(x))
   names(x)[1] <- names(dic)[1]
   y <- stringdist_left_join(x, dic, method = method,max_dist = max_dist,
                             distance_col = ".dist")

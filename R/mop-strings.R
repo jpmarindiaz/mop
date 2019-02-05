@@ -97,4 +97,9 @@ extract_last_word <- function(s, n = 1){
   word(trim_spaces(trim_punct(s)),-n)
 }
 
-
+#' @export
+contains_any <- function(s, words){
+   map_lgl(s, function(w){
+     any(map_lgl(words, ~ grepl(w, .)))
+   })
+}

@@ -12,7 +12,7 @@ test_that("Mop", {
 
   x <- c("Company   SAS ", "Comp S. A. S.", "CASAS sas", "SASrorSAS SAS",
          "Pepe SA", "SASA SA", "hola Limitada")
-  clean_company_name_co(x)
+  clean_company_name(x, context = "co")
 
 })
 

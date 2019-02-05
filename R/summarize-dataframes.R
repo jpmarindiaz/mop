@@ -24,7 +24,7 @@ summarize_df_num <- function(d){
                               min,max,mean,median))
   #x <- unlist(transpose(s_cat)[[1]])
   x <- as_vector(s_num)
-  s_num <- data_frame(var = names(x),value = x)
+  s_num <- tibble(var = names(x),value = x)
   if(ncol(d_num) == 1) s_num$var <- paste(names(d),s_num$var,sep = "_")
   #s <- s_num %>% separate(var, c("variable","metric"),sep = "_")
   s <- s_num %>% extract(var, c("variable","metric"), "(.*)_(.*)$")
@@ -53,12 +53,12 @@ summarize_df_cat <- function(d){
                          funs(n.missing,pct.missing, n.unique,unique.vals))
   #x <- as_vector(s_cat)
   x <- unlist(transpose(s_cat)[[1]])
-  s_cat <- data_frame(var = names(x),value = x)
+  s_cat <- tibble(var = names(x),value = x)
   if(ncol(d_chr) == 1) s_cat$var <- paste(names(d),s_cat$var,sep = "_")
   #s <- s_cat %>% separate(var, c("variable","metric"),sep = "_")
   s <- s_cat %>% extract(var, c("variable","metric"), "(.*)_(.*)$")
   summary_cat <- s %>% spread(metric,value)
-  summary_cat <- as_data_frame(map_at(summary_cat,
+  summary_cat <- as_tibble(map_at(summary_cat,
                                       c("n.missing","pct.missing","n.unique"),
                                       as.numeric))
   summary_cat
@@ -71,7 +71,7 @@ unique_cats <- function(d, cols = NULL, as_long = TRUE){
   d <- fct_to_chr(keep(d,~!is.numeric(.)))
   #dd <- map(d,~as.list(unique(.)))
   dd <- map(d,unique)
-  vars <- data_frame(variables = names(d))
+  vars <- tibble(variables = names(d))
   vars$values <- dd
   if(as_long)
     return(unnest(vars))
