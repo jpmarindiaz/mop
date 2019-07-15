@@ -4,7 +4,7 @@ copy_clipboard <- function(x, row.names = FALSE, col.names = TRUE, ...){
   sys <- Sys.info()[['sysname']]
   if(sys == "Linux"){
     con <- pipe("xclip -selection clipboard -i", open="w")
-    write.table(x, con, sep=sep, row.names=row.names, col.names=col.names, na="", ...)
+    write.table(x, con, sep="\t", row.names=row.names, col.names=col.names, na="", ...)
     close(con)
   }
   if(sys == "Darwin"){

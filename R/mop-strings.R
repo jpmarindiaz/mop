@@ -92,14 +92,25 @@ extract_numbers <- function(s, decimal = ".", thousands = ","){
 }
 
 #' @export
+extract_word <- function(s, n = 1){
+  #stringi::stri_extract_last_words()
+  word(trim_spaces(trim_punct(s)),n)
+}
+#' @export
 extract_last_word <- function(s, n = 1){
   #stringi::stri_extract_last_words()
   word(trim_spaces(trim_punct(s)),-n)
 }
 
 #' @export
-contains_any <- function(s, words){
+contains_any_words <- function(s, words){
+  s[is.na(s)] <- ""
    map_lgl(s, function(w){
-     any(map_lgl(words, ~ grepl(w, .)))
+     any(map_lgl(words, ~ grepl(., w, fixed = TRUE)))
    })
+}
+
+#' @export
+remove_repeated_char <- function(s, pattern = "[[:alnum:]|[:punct:]]"){
+  gsub(paste0('(',pattern,')\\1+'), '\\1', s)
 }
